@@ -3,15 +3,15 @@ Download and prepare datasets for Magistral-style RL training.
 Focuses on verifiable math and code problems.
 """
 
-from datasets import load_dataset
+from datasets import load_dataset, DatasetDict
 import json
 from pathlib import Path
 from tqdm import tqdm
 
-def download_math_data():
-    gsm8k = load_dataset("gsm8k", "main")
+def download_math_data() -> tuple[DatasetDict, DatasetDict]:
+    gsm8k: DatasetDict = load_dataset("gsm8k", "main")  # type: ignore
     print("loaded GSM8K...")
-    math = load_dataset("hendrycks/competition_math")
+    math: DatasetDict = load_dataset("hendrycks/competition_math")  # type: ignore
     print("loading hendrycks MATH...")
 
     # Save raw data
@@ -21,10 +21,10 @@ def download_math_data():
 
     return gsm8k, math
 
-def download_code_data():
+def download_code_data() -> DatasetDict:
     """Download APPS dataset"""
     print("Downloading APPS...")
-    apps = load_dataset("codeparrot/apps")
+    apps: DatasetDict = load_dataset("codeparrot/apps")  # type: ignore
 
     Path("./raw/code").mkdir(parents=True, exist_ok=True)
     apps.save_to_disk("./raw/code/apps")
