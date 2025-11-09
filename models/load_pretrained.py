@@ -25,7 +25,7 @@ def load_base_model(
     )
     model.gradient_checkpointing_enable()
     total_params = sum(p.numel() for p in model.parameters())
-    trainable_params = sum(p.numel() for p in model_parameters() if p.requires_grad)
+    trainable_params = sum(p.numel() for p in model.parameters() if p.requires_grad)
     print(f"Model loaded: {total_params/1e9:.2f}B total params")
     print(f"Trainable: {trainable_params/1e9:.2f}B params")
 
